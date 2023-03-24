@@ -1,7 +1,10 @@
+package TCGEngine;
+
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import cards.*;
 public class Board {
 
     private Player p1;
@@ -17,7 +20,7 @@ public class Board {
     public void takeTurn(Player p, Player o){
         p.printHand();
         Scanner scnr = new Scanner(System.in);
-        System.out.println("Give command: {command, use number 1, use number 2");
+        System.out.println("Waiting for command: {command, use number 1, use number 2}");
         String command = scnr.nextLine();
 
         Hashtable<String, String> header = parseHeader(command);
@@ -25,22 +28,55 @@ public class Board {
         while(!header.get("command").equals("pass")) {
             switch(header.get("command")){
                 case "play":
-                    System.out.println("Select card: ");
                     Card c = p.play(Integer.parseInt(header.get("use1")));
 
                     if(c instanceof Event){
-                        c.ability(p, o);
-                        p.discard(c);
+                        playEvent(c, p, o);
+                    } else if(c instanceof FlairWarrior){
+                        playFW(c, p, o);
+                    }
+                    break;
+                case "combat":
+                    flipGameState();
+                    break;
+                case "ability":
+                    String where = header.get("use1");
+                    if(where.equals("warrior")){
+                        p.warriors_board[Integer.parseInt(header.get("use2"))].ability(p, o);
+                    } else if(where.equals("battle")) {
+                        p.battles_board.get(Integer.parseInt(header.get("use2"))).ability(p, o);
                     }
                     break;
             }
             p.printHand();
-            System.out.println("Give command: ");
+            System.out.println("Waiting for command: ");
             command = scnr.nextLine();
             header = parseHeader(command);
         }
     }
 
+    private void playEvent(Card c, Player p, Player o){
+        c.ability(p, o);
+        p.discard(c);
+    }
+
+    private boolean playFW(Card c, Player p, Player o){
+        if (c.getAbilityType() == AType.on_play) c.ability(p, o);
+
+        for(int i = 0; i < 5; i++){
+            if(p1.warriors_board[i] == null) {
+                p1.warriors_board[i] = c;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean useAbility(Card c, Player p, Player o){
+        return false;
+    }
+
+    //obsolete method that is being scavenged for parts in takeTurn()
     /*public void p1Play(){
 
         int handPos = 1;
@@ -71,6 +107,7 @@ public class Board {
         if(commandScnr.hasNext()) header.put("use1", commandScnr.next());
         if(commandScnr.hasNext())  header.put("use2", commandScnr.next());
         if(commandScnr.hasNext()) header.put("use3", commandScnr.next());
+        if(commandScnr.hasNext()) header.put("use4", commandScnr.next());
         return header;
     }
 
@@ -96,3 +133,4 @@ public class Board {
         game_over = true;
     }
 }
+

@@ -1,3 +1,5 @@
+package TCGEngine;
+
 public class DiscordUser {
 
     private String name;

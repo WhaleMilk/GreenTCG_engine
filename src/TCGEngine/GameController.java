@@ -1,3 +1,6 @@
+package TCGEngine;
+import cards.*;
+
 import java.util.Scanner;
 
 public class GameController {
@@ -23,3 +26,4 @@ public class GameController {
         }
     }
 }
+

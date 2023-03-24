@@ -1,4 +1,6 @@
 import java.util.*;
+import cards.*;
+import TCGEngine.*;
 public class Main {
     public static void main(String[] args) {
         Card PoG = new PotOfGreen("url", 001);

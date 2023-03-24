@@ -1,3 +1,5 @@
+package cards;
+import TCGEngine.*;
 public abstract class FlairWarrior extends Card {
     private int hp;
     private int atk;
@@ -10,3 +12,4 @@ public abstract class FlairWarrior extends Card {
 
     public abstract void ability(Player p1, Player p2);
 }
+

@@ -1,4 +1,7 @@
-public abstract class Event extends Card{
+package cards;
+import TCGEngine.*;
+
+public abstract class Event extends Card {
 
 
     public Event(String name, String img, int id){

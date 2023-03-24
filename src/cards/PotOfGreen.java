@@ -1,6 +1,9 @@
+package cards;
+import TCGEngine.*;
+
 import java.util.ArrayList;
 
-public class PotOfGreen extends Event{
+public class PotOfGreen extends Event {
 
     public PotOfGreen(String img, int id) {
         super("Pot Of Green", img, id);
@@ -13,3 +16,4 @@ public class PotOfGreen extends Event{
         System.out.println("Drawing two cards");
     }
 }
+

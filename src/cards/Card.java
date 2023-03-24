@@ -1,3 +1,7 @@
+package cards;
+
+import TCGEngine.Player;
+
 public abstract class Card{
     String name;
     String img;
@@ -25,3 +29,4 @@ public abstract class Card{
     public abstract void ability(Player owner, Player opponent);
 
 }
+

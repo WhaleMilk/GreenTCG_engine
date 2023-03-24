@@ -1,4 +1,6 @@
+package TCGEngine;
 import java.util.*;
+import cards.*;
 
 public class Deck {
 
@@ -51,3 +53,4 @@ public class Deck {
         graveyard.add(c);
     }
 }
+
