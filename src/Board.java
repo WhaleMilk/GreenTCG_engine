@@ -22,11 +22,11 @@ public class Board {
 
         Hashtable<String, String> header = parseHeader(command);
 
-        while(!header.get(command).equals("pass")) {
-            switch(command){
+        while(!header.get("command").equals("pass")) {
+            switch(header.get("command")){
                 case "play":
                     System.out.println("Select card: ");
-                    Card c = p.play(scnr.nextInt());
+                    Card c = p.play(Integer.parseInt(header.get("use1")));
 
                     if(c instanceof Event){
                         c.ability(p, o);
@@ -37,6 +37,7 @@ public class Board {
             p.printHand();
             System.out.println("Give command: ");
             command = scnr.nextLine();
+            header = parseHeader(command);
         }
     }
 
@@ -67,9 +68,9 @@ public class Board {
         Scanner commandScnr = new Scanner(command);
 
         header.put("command", commandScnr.next().toLowerCase());
-        header.put("use1", commandScnr.next().toLowerCase());
-        if(commandScnr.hasNext())  header.put("use2", commandScnr.next().toLowerCase());
-        if(commandScnr.hasNext()) header.put("use3", commandScnr.next().toLowerCase());
+        if(commandScnr.hasNext()) header.put("use1", commandScnr.next());
+        if(commandScnr.hasNext())  header.put("use2", commandScnr.next());
+        if(commandScnr.hasNext()) header.put("use3", commandScnr.next());
         return header;
     }
 
