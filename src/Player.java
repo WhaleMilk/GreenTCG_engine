@@ -55,7 +55,7 @@ public class Player {
 
     public void printHand(){
         for(Card c : hand){
-            System.out.print("Name: " + c.getname() + "\nAbility:" + c.getAbilityText());
+            System.out.print("Name: " + c.getname() + "\nAbility:" + c.getAbilityText() + "\n");
         }
     }
 }

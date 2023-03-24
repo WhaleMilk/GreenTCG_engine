@@ -1,5 +1,7 @@
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.Dictionary;
+import java.util.Hashtable;
 public class Board {
 
     private Player p1;
@@ -12,15 +14,35 @@ public class Board {
         this.p2 = p2;
     }
 
-    public void takeTurn(Player p){
+    public void takeTurn(Player p, Player o){
         p.printHand();
         Scanner scnr = new Scanner(System.in);
+        System.out.println("Give command: {command, use number 1, use number 2");
+        String command = scnr.nextLine();
 
+        Hashtable<String, String> header = parseHeader(command);
+
+        while(!header.get(command).equals("pass")) {
+            switch(command){
+                case "play":
+                    System.out.println("Select card: ");
+                    Card c = p.play(scnr.nextInt());
+
+                    if(c instanceof Event){
+                        c.ability(p, o);
+                        p.discard(c);
+                    }
+                    break;
+            }
+            p.printHand();
+            System.out.println("Give command: ");
+            command = scnr.nextLine();
+        }
     }
 
     /*public void p1Play(){
 
-        int handPos = 1; //TODO: implement connection with bot for player input
+        int handPos = 1;
         Card c = p1.play(handPos);
 
         if(c instanceof Event){
@@ -40,10 +62,15 @@ public class Board {
         checkEndGame();
     } */
 
-    private void parseCommand(String command){
-        if(command.toLowerCase().equals("draw")){
+    private Hashtable<String, String> parseHeader(String command){
+        Hashtable<String, String> header = new Hashtable<String, String>();
+        Scanner commandScnr = new Scanner(command);
 
-        }
+        header.put("command", commandScnr.next().toLowerCase());
+        header.put("use1", commandScnr.next().toLowerCase());
+        if(commandScnr.hasNext())  header.put("use2", commandScnr.next().toLowerCase());
+        if(commandScnr.hasNext()) header.put("use3", commandScnr.next().toLowerCase());
+        return header;
     }
 
     public int flipGameState(){

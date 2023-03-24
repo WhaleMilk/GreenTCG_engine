@@ -10,5 +10,6 @@ public class PotOfGreen extends Event{
     @Override
     public void ability(Player owner, Player opponent) {
         owner.drawTo(2);
+        System.out.println("Drawing two cards");
     }
 }

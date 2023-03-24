@@ -13,10 +13,12 @@ public class GameController {
     }
 
     public void start(){
+        System.out.println("Game start:");
+        System.out.println("Drawing one card for each player");
         challenger.drawTo(1);
         opponent.drawTo(1);
         while(!board.isGame_over()){
-            board.takeTurn(challenger);
+            board.takeTurn(challenger, opponent);
             board.abortGame();
         }
     }
