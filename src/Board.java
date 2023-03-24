@@ -18,7 +18,7 @@ public class Board {
 
     }
 
-    public void p1Play(){
+    /*public void p1Play(){
 
         int handPos = 1; //TODO: implement connection with bot for player input
         Card c = p1.play(handPos);
@@ -38,7 +38,7 @@ public class Board {
         }
 
         checkEndGame();
-    }
+    } */
 
     private void parseCommand(String command){
         if(command.toLowerCase().equals("draw")){
