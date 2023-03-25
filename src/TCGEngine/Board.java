@@ -42,17 +42,20 @@ public class Board {
                 case "ability":
                     String where = header.get("use1");
                     if(where.equals("warrior")){
+                        if(p.warriors_board[Integer.parseInt(header.get("use2"))].getAbilityType() == AType.none){break;}
                         p.warriors_board[Integer.parseInt(header.get("use2"))].ability(p, o);
                     } else if(where.equals("battle")) {
                         p.battles_board.get(Integer.parseInt(header.get("use2"))).ability(p, o);
                     }
                     break;
             }
+            checkEndGame();
             p.printHand();
             System.out.println("Waiting for command: ");
             command = scnr.nextLine();
             header = parseHeader(command);
         }
+
     }
 
     private void playEvent(Card c, Player p, Player o){
